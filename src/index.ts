@@ -1,4 +1,4 @@
-// @curaos/storage-sdk — public surface.
+// @curaos/storage-sdk - public surface.
 //
 // Generated from storage-service's TypeSpec REST contract (specs/storage.tsp ->
 // OpenAPI 3.1 -> @hey-api/openapi-ts) and its AsyncAPI event contract

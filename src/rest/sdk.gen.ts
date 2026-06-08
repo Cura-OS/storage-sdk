@@ -29,7 +29,7 @@ export const storagesHealth = <ThrowOnError extends boolean = false>(options?: O
 export const storagesProtectedProbe = <ThrowOnError extends boolean = false>(options?: Options<StoragesProtectedProbeData, ThrowOnError>): RequestResult<StoragesProtectedProbeResponses, StoragesProtectedProbeErrors, ThrowOnError> => (options?.client ?? client).get<StoragesProtectedProbeResponses, StoragesProtectedProbeErrors, ThrowOnError>({ url: '/storages/protected', ...options });
 
 /**
- * Demonstration write — actor bound to the JWT principal.
+ * Demonstration write - actor bound to the JWT principal.
  */
 export const storagesProtectedWrite = <ThrowOnError extends boolean = false>(options: Options<StoragesProtectedWriteData, ThrowOnError>): RequestResult<StoragesProtectedWriteResponses, StoragesProtectedWriteErrors, ThrowOnError> => (options.client ?? client).post<StoragesProtectedWriteResponses, StoragesProtectedWriteErrors, ThrowOnError>({
     url: '/storages/protected-write',
