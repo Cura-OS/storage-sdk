@@ -4,6 +4,11 @@ export type ClientOptions = {
     baseUrl: 'http://localhost:3000' | (string & {});
 };
 
+export type DeleteAck = {
+    id: string;
+    deleted: boolean;
+};
+
 /**
  * Liveness probe result - any authenticated principal may call it.
  */
@@ -36,6 +41,13 @@ export type StorageWriteInput = {
     reason?: string;
 };
 
+export type WormLockProblem = {
+    statusCode: 403;
+    error: 'worm_lock';
+    retention_until: string;
+    message: string;
+};
+
 /**
  * Result of the demonstration write - actorId is the JWT-derived principal, never body-supplied.
  */
@@ -44,6 +56,44 @@ export type WriteAck = {
     layer: string;
     actorId: string;
 };
+
+export type ObjectsDeleteData = {
+    body?: never;
+    headers: {
+        Authorization: string;
+    };
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/objects/{id}';
+};
+
+export type ObjectsDeleteErrors = {
+    /**
+     * Access is unauthorized.
+     */
+    401: ProblemResponse;
+    /**
+     * Access is forbidden.
+     */
+    403: WormLockProblem;
+    /**
+     * The server cannot find the requested resource.
+     */
+    404: ProblemResponse;
+};
+
+export type ObjectsDeleteError = ObjectsDeleteErrors[keyof ObjectsDeleteErrors];
+
+export type ObjectsDeleteResponses = {
+    /**
+     * The request has succeeded.
+     */
+    200: DeleteAck;
+};
+
+export type ObjectsDeleteResponse = ObjectsDeleteResponses[keyof ObjectsDeleteResponses];
 
 export type StoragesHealthData = {
     body?: never;
