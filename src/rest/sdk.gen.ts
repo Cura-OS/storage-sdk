@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, RequestResult, TDataShape } from './client';
 import { client } from './client.gen';
-import type { StoragesHealthData, StoragesHealthErrors, StoragesHealthResponses, StoragesProtectedProbeData, StoragesProtectedProbeErrors, StoragesProtectedProbeResponses, StoragesProtectedWriteData, StoragesProtectedWriteErrors, StoragesProtectedWriteResponses, StoragesReadData, StoragesReadErrors, StoragesReadResponses } from './types.gen';
+import type { ObjectsDeleteData, ObjectsDeleteErrors, ObjectsDeleteResponses, StoragesHealthData, StoragesHealthErrors, StoragesHealthResponses, StoragesProtectedProbeData, StoragesProtectedProbeErrors, StoragesProtectedProbeResponses, StoragesProtectedWriteData, StoragesProtectedWriteErrors, StoragesProtectedWriteResponses, StoragesReadData, StoragesReadErrors, StoragesReadResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -17,6 +17,11 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
      */
     meta?: Record<string, unknown>;
 };
+
+/**
+ * Delete an object; WORM retention returns a typed 403 worm_lock problem.
+ */
+export const objectsDelete = <ThrowOnError extends boolean = false>(options: Options<ObjectsDeleteData, ThrowOnError>): RequestResult<ObjectsDeleteResponses, ObjectsDeleteErrors, ThrowOnError> => (options.client ?? client).delete<ObjectsDeleteResponses, ObjectsDeleteErrors, ThrowOnError>({ url: '/objects/{id}', ...options });
 
 /**
  * Liveness probe.
